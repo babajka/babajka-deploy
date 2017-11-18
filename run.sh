@@ -12,8 +12,8 @@ FRONTEND_PATH=$2
 PORT_FRONTEND_EXTERNAL="49170"
 # Backend port must be syncronized with babajka-frontend configuration.
 # TODO(uladbohdan): to get rid of backend port exposing: only frontend must be
-# explicitly available externally.
-PORT_BACKEND_EXTERNAL="49160"
+# explicitly available externally in prod.
+PORT_BACKEND_EXTERNAL="8080"
 
 # Internal ports must be syncronized with configurations in appropriate repos.
 PORT_FRONTEND_INTERNAL="3000"
