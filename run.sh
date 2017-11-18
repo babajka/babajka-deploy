@@ -15,6 +15,10 @@ PORT_FRONTEND_EXTERNAL="49170"
 # explicitly available externally.
 PORT_BACKEND_EXTERNAL="49160"
 
+# Internal ports must be syncronized with configurations in appropriate repos.
+PORT_FRONTEND_INTERNAL="3000"
+PORT_BACKEND_INTERNAL="8080"
+
 if [ -z "$BACKEND_PATH" ]
 then
   mkdir tmp
@@ -34,12 +38,11 @@ then
 else
   mkdir tmp
   cd tmp
-  # cp -r $BACKEND_PATH tmp/ || exit 1
+
   cp "${BABAJKA_SECRET}" "../${BACKEND_PATH}/secret.json" || exit 1
   BACKEND_PATH="../${BACKEND_PATH}"
 
   FRONTEND_PATH="../${FRONTEND_PATH}"
-  # cp -r $FRONTEND_PATH tmp/ || exit 1
 fi
 
 # Generating tmp/docker-compose.yaml file.
@@ -49,11 +52,11 @@ services:
   backend:
     build: ${BACKEND_PATH}
     ports:
-      - "${PORT_BACKEND_EXTERNAL}:3000"
+      - "${PORT_BACKEND_EXTERNAL}:${PORT_BACKEND_INTERNAL}"
   frontend:
     build: ${FRONTEND_PATH}
     ports:
-      - "${PORT_FRONTEND_EXTERNAL}:8080"
+      - "${PORT_FRONTEND_EXTERNAL}:${PORT_FRONTEND_INTERNAL}"
 EOM
 
 docker-compose up --build
