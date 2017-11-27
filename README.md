@@ -12,7 +12,7 @@ runs code from specified local directories in one terminal.
 
 Once the script is executed with no failures, Babajka is available on port 3000.
 
-## locally with Docker Compose
+## locally with Docker Compose (multiple containers)
 
 `bash run-docker-compose.sh` - gets code from GitHub (`master` branches)
 and runs it.
@@ -22,3 +22,8 @@ runs code from specified local directories.
 
 Once the script is executed with no failures, Babajka is available on
 PORT_FRONTEND_EXTERNAL (specified in run.sh file).
+
+## locally and on Heroku in a single container
+
+The benefit is that single container is twice cheaper.
+Check out `single-container` folder.

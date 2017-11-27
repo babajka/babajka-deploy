@@ -29,13 +29,17 @@ then
 fi
 
 cd $BACKEND_PATH || exit 1
+echo "Installing BACKEND dependencies..."
 npm install
 
 cd $WORK_DIR
 cd $FRONTEND_PATH || exit 1
+echo "Installing FRONTEND dependencies..."
 npm install
 
-echo "INSTALLATION OF BACKEND & FRONTEND IS COMPLETE."
+echo "======================="
+echo "INSTALLED SUCCESSFULLY."
+echo "======================="
 
 cd $WORK_DIR
 
