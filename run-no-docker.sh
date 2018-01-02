@@ -30,12 +30,13 @@ fi
 
 cd $BACKEND_PATH || exit 1
 echo "Installing BACKEND dependencies..."
-npm install
+npm install || exit 1
 
 cd $WORK_DIR
 cd $FRONTEND_PATH || exit 1
 echo "Installing FRONTEND dependencies..."
-npm install
+npm install || exit 1
+bash copy-static.sh || exit 1
 
 echo "======================="
 echo "INSTALLED SUCCESSFULLY."
@@ -43,7 +44,7 @@ echo "======================="
 
 cd $WORK_DIR
 
-# This is to cause Ctrl+C kill all processes at once.
+# This is to cause Ctrl+C kill both processes at once.
 trap 'kill %1' SIGINT
 # Running Backend and Frontend and prettifying outputs with prefixes.
 npm run start-prod --prefix $BACKEND_PATH | tee tmp/babajka_backend.log | sed -e 's/^/ BACKEND |  /' & \

@@ -5,7 +5,7 @@ The repository contains scripts to build/run/deploy Babajka project.
 ## locally without Docker
 
 `bash run-no-docker.sh` - gets code from GitHub (`master` branches) and runs it
-in one terminal.
+in one terminal. Consider using the script both for local and remote runs.
 
 `bash run-no-docker.sh ../babajka-backend/ ../babajka-frontend/` -
 runs code from specified local directories in one terminal.
