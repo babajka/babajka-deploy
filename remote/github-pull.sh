@@ -9,4 +9,4 @@ git pull
 cd $BABAJKA_FRONTEND
 git pull
 
-cd WORK_DIR
+cd $WORK_DIR

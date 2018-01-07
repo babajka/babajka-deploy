@@ -7,7 +7,7 @@ npm install --prefix $BABAJKA_BACKEND
 echo "Installing FRONTEND dependencies..."
 npm install --prefix $BABAJKA_FRONTEND
 # TODO(uladbohdan): the command below must be performed by frontend postinstall script.
-bash copy-static.sh
+bash "${BABAJKA_FRONTEND}/copy-static.sh"
 
 echo "======================="
 echo "INSTALLED SUCCESSFULLY."
