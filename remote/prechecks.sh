@@ -19,7 +19,7 @@ EOF
 # TODO(uladbohdan): to check 80 -> 3000 port forwarding enabled.
 
 if [ -z $BABAJKA_ROOT ]; then
-  fail '$BABAJKA_ROOT must be set and contain a set of necessary configs'
+  fail_with_message '$BABAJKA_ROOT must be set and contain a set of necessary configs'
   exit 1
 fi
 
@@ -30,27 +30,27 @@ fi
 
 export BABAJKA_SECRET="${BABAJKA_ROOT}/${BACKEND_SECRET_CONFIG}"
 if [ ! -f $BABAJKA_SECRET ]; then
-  fail 'Backend Secret Config is absent.'
+  fail_with_message 'Backend Secret Config is absent.'
   exit 1
 fi
 
 if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG}" ]; then
-  fail 'Deployment configuration must be provided. Prechecks FAILED.'
+  fail_with_message 'Deployment configuration must be provided. Prechecks FAILED.'
   exit 1
 fi
 
 source "${BABAJKA_ROOT}/${DEPLOY_CONFIG}"
 # Variables that must be set in DEPLOY_CONFIG. Check out configs/template.sh
 if [ -z $BABAJKA_BACKEND_URL ]; then
-  fail 'BABAJKA_BACKEND_URL is not set. Prechecks FAILED.'
+  fail_with_message 'BABAJKA_BACKEND_URL is not set. Prechecks FAILED.'
   exit 1
 fi
 if [[ ! "$DEPLOY_MODE" =~ ^(development|production)$ ]]; then
-  fail "$DEPLOY_MODE is not set properly"
+  fail_with_message "$DEPLOY_MODE is not set properly"
   exit 1
 fi
 if [ $DEPLOY_MODE == 'production' ] && [ ! -z $REINIT_DATABASE ]; then
-  fail 'Forbidden to reinit DB in production.'
+  fail_with_message 'Forbidden to reinit DB in production.'
   exit 1
 fi
 if [ $DEPLOY_MODE == 'development' ] && [ $REINIT_DATABASE == 'yes' ]; then
@@ -58,7 +58,7 @@ if [ $DEPLOY_MODE == 'development' ] && [ $REINIT_DATABASE == 'yes' ]; then
     # All conditions for DB reinit satisfied.
     BABAJKA_REINIT_DB_FROM_PATH="${BABAJKA_ROOT}/$DB_INIT_PATH"
   else
-    fail 'Reinit requested but data was not provided'
+    fail_with_message 'Reinit requested but data was not provided'
     exit 1
   fi
 fi
