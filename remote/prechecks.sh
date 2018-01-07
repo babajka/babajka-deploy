@@ -21,7 +21,7 @@ EOF
 
 # TODO(uladbohdan): to check 80 -> 3000 port forwarding enabled.
 
-if [ -z $BABAJKA_ROOT ] || [ -z $BABAJKA_BACKEND ] || [ -z $BABAJKA_FRONTEND] || [ -z $BABAJKA_DEPLOY ] ; then
+if [ -z $BABAJKA_ROOT ] || [ -z $BABAJKA_BACKEND ] || [ -z $BABAJKA_FRONTEND ] || [ -z $BABAJKA_DEPLOY ] ; then
   fail_with_message '$BABAJKA_X vars must be set'
   exit 1
 fi
