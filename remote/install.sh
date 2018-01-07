@@ -1,11 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
 BACKEND_PATH=${1:-'tmp/babajka-backend'}
 FRONTEND_PATH=${2:-'tmp/babajka-frontend'}
 
 WORK_DIR=$(pwd)
 
-cd $BACKEND_PATH || exit 1
+cd $BACKEND_PATH
 echo "Installing BACKEND dependencies..."
-npm install || exit 1
+npm install
 
 if [ ! -z $BABAJKA_REINIT_DB_FROM_PATH ]; then
   cp -r $BABAJKA_REINIT_DB_FROM_PATH "${BACKEND_PATH}/src/db/"
@@ -14,11 +17,11 @@ if [ ! -z $BABAJKA_REINIT_DB_FROM_PATH ]; then
 fi
 
 cd $WORK_DIR
-cd $FRONTEND_PATH || exit 1
+cd $FRONTEND_PATH
 echo "Installing FRONTEND dependencies..."
-npm install || exit 1
+npm install
 # TODO(uladbohdan): the command below must be performed by frontend postinstall script.
-bash copy-static.sh || exit 1
+bash copy-static.sh
 
 echo "======================="
 echo "INSTALLED SUCCESSFULLY."

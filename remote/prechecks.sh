@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 # The script checks if the system is ready to perform the rest of the actions.
 
 source ../common/vars.sh

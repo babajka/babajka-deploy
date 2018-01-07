@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 echo '========================================================================='
 echo 'Environment summary:'
 echo "BABAJKA_SECRET=${BABAJKA_SECRET}"

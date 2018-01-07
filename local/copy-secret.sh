@@ -1,5 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
 # Run it as:
-# bash copy-secret.sh [HOST]
+# ./copy-secret.sh [HOST]
 
 source '../common/vars.sh'
 

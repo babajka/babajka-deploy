@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 # This is an example of file which may act as DEPLOY_CONFIG.
 
 ### MANDATORY VARIABLE TO SET:

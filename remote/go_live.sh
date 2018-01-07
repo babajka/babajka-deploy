@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 BACKEND_PATH=${1:-'tmp/babajka-backend'}
 FRONTEND_PATH=${2:-'tmp/babajka-frontend'}
 

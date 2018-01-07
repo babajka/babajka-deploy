@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 WORK_DIR=$(pwd)
 
 if [ -z "$BACKEND_PATH" ]
@@ -7,9 +10,9 @@ then
   mkdir tmp
   cd tmp
 
-  git clone https://github.com/babajka/babajka-backend.git || exit 1
+  git clone https://github.com/babajka/babajka-backend.git
 
-  git clone https://github.com/babajka/babajka-frontend.git || exit 1
+  git clone https://github.com/babajka/babajka-frontend.git
 
   cd $WORK_DIR
 elif [ -z "$FRONTEND_PATH" ]
