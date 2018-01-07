@@ -21,3 +21,5 @@ fi
 
 # One needs ssh key to complete the action.
 scp -rp "${WIR_SHARED}/${CONFIGS_DRIVE_PATH}" root@$HOST:$BABAJKA_ROOT
+
+printf "${COLOUR_GREEN}COPIED SUCCESSFULLY${COLOUR_DEFAULT}\n"

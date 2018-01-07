@@ -2,6 +2,11 @@
 
 source ../common/vars.sh
 
+fail_with_message()
+{
+  printf "PRECHECKS ${COLOUR_RED}FAILED${COLOUR_DEFAULT}: {$1}\n"
+}
+
 cat << EOF
 ===============================================================================
 Running prechecks normally means you're about to reload the whole system.
@@ -14,7 +19,7 @@ EOF
 # TODO(uladbohdan): to check 80 -> 3000 port forwarding enabled.
 
 if [ -z $BABAJKA_ROOT ]; then
-  echo '$BABAJKA_ROOT must be set and contain a set of necessary configs'
+  fail '$BABAJKA_ROOT must be set and contain a set of necessary configs'
   exit 1
 fi
 
@@ -25,27 +30,27 @@ fi
 
 export BABAJKA_SECRET="${BABAJKA_ROOT}/${BACKEND_SECRET_CONFIG}"
 if [ ! -f $BABAJKA_SECRET ]; then
-  echo 'Backend Secret Config is absent. Prechecks FAILED.'
+  fail 'Backend Secret Config is absent.'
   exit 1
 fi
 
 if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG}" ]; then
-  echo 'Deployment configuration must be provided. Prechecks FAILED.'
+  fail 'Deployment configuration must be provided. Prechecks FAILED.'
   exit 1
 fi
 
 source "${BABAJKA_ROOT}/${DEPLOY_CONFIG}"
 # Variables that must be set in DEPLOY_CONFIG. Check out configs/template.sh
 if [ -z $BABAJKA_BACKEND_URL ]; then
-  echo 'BABAJKA_BACKEND_URL is not set. Prechecks FAILED.'
+  fail 'BABAJKA_BACKEND_URL is not set. Prechecks FAILED.'
   exit 1
 fi
 if [[ ! "$DEPLOY_MODE" =~ ^(development|production)$ ]]; then
-  echo "$DEPLOY_MODE is not set properly"
+  fail "$DEPLOY_MODE is not set properly"
   exit 1
 fi
 if [ $DEPLOY_MODE == 'production' ] && [ ! -z $REINIT_DATABASE ]; then
-  echo 'Forbidden to reinit DB in production. FAILED.'
+  fail 'Forbidden to reinit DB in production.'
   exit 1
 fi
 if [ $DEPLOY_MODE == 'development' ] && [ $REINIT_DATABASE == 'yes' ]; then
@@ -53,7 +58,9 @@ if [ $DEPLOY_MODE == 'development' ] && [ $REINIT_DATABASE == 'yes' ]; then
     # All conditions for DB reinit satisfied.
     BABAJKA_REINIT_DB_FROM_PATH="${BABAJKA_ROOT}/$DB_INIT_PATH"
   else
-    echo 'Reinit requested but data was not provided. FAILED'
+    fail 'Reinit requested but data was not provided'
     exit 1
   fi
 fi
+
+printf "ALL PRECHECKS ${COLOUR_GREEN}PASSED${COLOUR_DEFAULT}\n"
