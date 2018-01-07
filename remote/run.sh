@@ -1,3 +1,5 @@
+bash prechecks.sh || exit 1
+
 # Cloning from GitHub unless parameters are provided.
 bash init.sh $1 $2 || exit 1
 
