@@ -4,7 +4,7 @@ source ../common/vars.sh
 
 fail_with_message()
 {
-  printf "PRECHECKS ${COLOUR_RED}FAILED${COLOUR_DEFAULT}: {$1}\n"
+  printf "PRECHECKS ${COLOUR_RED}FAILED${COLOUR_DEFAULT}: $1\n"
 }
 
 cat << EOF

@@ -8,4 +8,4 @@ FRONTEND_PATH=${2:-'tmp/babajka-frontend'}
 
 bash install.sh $1 $2 || exit 1
 
-bash start.sh $1 $2 || exit 1
+bash go_live.sh $1 $2 || exit 1
