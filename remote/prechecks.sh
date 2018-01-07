@@ -29,7 +29,7 @@ if [ ! -f $BABAJKA_SECRET ]; then
   exit 1
 fi
 
-if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG}"]; then
+if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG}" ]; then
   echo 'Deployment configuration must be provided. Prechecks FAILED.'
   exit 1
 fi
