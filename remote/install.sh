@@ -4,7 +4,7 @@ set -e
 echo "Installing BACKEND dependencies..."
 npm install --prefix $BABAJKA_BACKEND
 
-cd WORK_DIR=$(pwd)
+WORK_DIR=$(pwd)
 
 echo "Installing FRONTEND dependencies..."
 cd $BABAJKA_FRONTEND

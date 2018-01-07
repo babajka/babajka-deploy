@@ -10,4 +10,4 @@ set -e
 
 . reinit-db.sh
 
-. start.sh
+. go-live.sh

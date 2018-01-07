@@ -8,23 +8,16 @@ Remote code structure:
   babajka-root/
 ```
 
-A set of scripts running the project in one terminal. Might be useful both
-in local usage and to run project remotely.
+One might want to push all sensitive data to remote machine with `local` scripts first.
 
-Some use cases:
+Consider running any of three following scripts:
 
-* `bash run.sh` - clones from GitHub, installs master branches, starts.
+* `run-from-scratch.sh` - clones repos and runs them.
 
-* `bash run.sh path1 path2` - installs backend and frontend from paths and starts them.
+* `update-all.sh` - pulls from GitHub, installs and runs.
 
-* `bash install.sh path1 path2` - installs backend and frontend. Paths default to
-  `tmp/babajka-backend` and `tmp/babajka-frontend` respectively.
+* `quick-start.sh` - runs installed.
 
-* `bash go_live.sh path1 path2` - starts preinstalled backend and frontend.
-  Defaults are the same as above.
+All scripts mentions above are SAFE and do environmental check before running.
 
-* `bash update_github.sh path1 path2` - pulls code from GitHub, installs (if required),
-  starts an updated version. Consider terminating the jobs before running the script
-  with `pkill node` (for example).
-
-Babajka is then available on `:3000`, backend is on `:8080`.
+Babajka is then available on `:3000` (default), backend is on `:8080`.
