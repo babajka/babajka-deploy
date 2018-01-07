@@ -1,10 +1,10 @@
 BABAJKA_ROOT='/babajka-root'
 
-BACKEND_SECRET_CONFIG='babajka-backend-secret-config.json'
+BACKEND_SECRET_CONFIG_FILENAME='babajka-backend-secret-config.json'
 
 DB_INIT_PATH='db-init'
 
-DEPLOY_CONFIG='deploy-config.sh'
+DEPLOY_CONFIG_FILENAME='deploy-config.sh'
 
 # Colouring.
 COLOUR_GREEN="\033[1;32m";

@@ -2,10 +2,10 @@
 
 ### MANDATORY VARIABLE TO SET:
 
-BABAJKA_BACKEND_URL=''
-DEPLOY_MODE='development'
+export BABAJKA_BACKEND_URL=''
+export DEPLOY_MODE='development'
 
 ### OPTIONAL VARIABLES TO SET:
 
 # Only takes effect if in 'development' mode.
-REINIT_DATABASE='yes'
+export REINIT_DATABASE='yes'
