@@ -28,18 +28,18 @@ fi
 # -- DEPLOY_CONFIG
 # -- DB_INIT_PATH
 
-export BABAJKA_SECRET="${BABAJKA_ROOT}/${BACKEND_SECRET_CONFIG}"
+export BABAJKA_SECRET="${BABAJKA_ROOT}/${BACKEND_SECRET_CONFIG_FILENAME}"
 if [ ! -f $BABAJKA_SECRET ]; then
   fail_with_message 'Backend Secret Config is absent.'
   exit 1
 fi
 
-if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG}" ]; then
+if [ ! -f "${BABAJKA_ROOT}/${DEPLOY_CONFIG_FILENAME}" ]; then
   fail_with_message 'Deployment configuration must be provided. Prechecks FAILED.'
   exit 1
 fi
 
-source "${BABAJKA_ROOT}/${DEPLOY_CONFIG}"
+source "${BABAJKA_ROOT}/${DEPLOY_CONFIG_FILENAME}"
 # Variables that must be set in DEPLOY_CONFIG. Check out configs/template.sh
 if [ -z $BABAJKA_BACKEND_URL ]; then
   fail_with_message 'BABAJKA_BACKEND_URL is not set. Prechecks FAILED.'
