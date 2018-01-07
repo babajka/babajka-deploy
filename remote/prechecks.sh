@@ -21,10 +21,16 @@ EOF
 
 # TODO(uladbohdan): to check 80 -> 3000 port forwarding enabled.
 
-if [ -z $BABAJKA_ROOT ] || [ -z $BABAJKA_BACKEND ] || [ -z $BABAJKA_FRONTEND ] || [ -z $BABAJKA_DEPLOY ] ; then
+if [ -z $BABAJKA_BACKEND ] || [ -z $BABAJKA_DEPLOY ] || [ -z $BABAJKA_FRONTEND ] || [ -z $BABAJKA_LOGS ] || [ -z $BABAJKA_ROOT ] ; then
   fail_with_message '$BABAJKA_X vars must be set'
   exit 1
 fi
+
+mkdir -p $BABAJKA_BACKEND
+# mkdir -p $BABAJKA_DEPLOY
+mkdir -p $BABAJKA_FRONTEND
+mkdir -p $BABAJKA_LOGS
+mkdir -p $BABAJKA_ROOT
 
 # BABAJKA_ROOT (files copied to machine from secret sources)
 # -- BACKEND_SECRET_CONFIG

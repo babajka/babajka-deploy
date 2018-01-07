@@ -12,5 +12,6 @@ echo "Code location:"
 echo "BABAJKA_BACKEND=${BABAJKA_BACKEND}"
 echo "BABAJKA_DEPLOY=${BABAJKA_DEPLOY}"
 echo "BABAJKA_FRONTEND=${BABAJKA_FRONTEND}"
+echo "BABAJKA_LOGS=${BABAJKA_LOGS}"
 echo "BABAJKA_ROOT=${BABAJKA_ROOT}"
 echo '========================================================================='
