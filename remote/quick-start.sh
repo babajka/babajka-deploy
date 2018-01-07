@@ -4,4 +4,6 @@ set -e
 . prechecks.sh
 . print-env.sh
 
-. go_live.sh $1 $2
+. reinit-db.sh
+
+. go_live.sh
