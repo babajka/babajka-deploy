@@ -11,7 +11,9 @@ echo "Installing BACKEND dependencies..."
 npm install
 
 if [ ! -z $BABAJKA_REINIT_DB_FROM_PATH ]; then
+  cd $WORK_DIR
   cp -r $BABAJKA_REINIT_DB_FROM_PATH "${BACKEND_PATH}/src/db/"
+  cd $BACKEND_PATH
   npm run init-db
   echo 'DB DROPPED AND REINITIALIZED.'
 fi

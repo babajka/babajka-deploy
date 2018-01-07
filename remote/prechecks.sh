@@ -59,7 +59,7 @@ fi
 if [ $DEPLOY_MODE == 'development' ] && [ $REINIT_DATABASE == 'yes' ]; then
   if [ -d "${BABAJKA_ROOT}/$DB_INIT_PATH" ]; then
     # All conditions for DB reinit satisfied.
-    export BABAJKA_REINIT_DB_FROM_PATH="${BABAJKA_ROOT}/$DB_INIT_PATH"
+    export BABAJKA_REINIT_DB_FROM_PATH="${BABAJKA_ROOT}/${DB_INIT_PATH}/"
   else
     fail_with_message 'Reinit requested but data was not provided'
     exit 1
