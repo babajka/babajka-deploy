@@ -1,3 +1,13 @@
+Remote code structure:
+
+```
+/
+  babajka-backend/
+  babajka-deploy/
+  babajka-frontend/
+  babajka-root/
+```
+
 A set of scripts running the project in one terminal. Might be useful both
 in local usage and to run project remotely.
 
