@@ -1,0 +1,34 @@
+server {
+	listen 80;
+
+	# Switch between the lines to enable/disable wir.by.
+	# stub.wir.by file must be modified accordingly then.
+	server_name prod.wir.by www.prod.wir.by;
+	# server_name wir.by www.wir.by prod.wir.by www.prod.wir.by;
+
+	error_page 404 /404.html;
+	error_page 500 502 503 504 /500.html;
+
+	location / {
+		proxy_pass http://localhost:3009;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+	}
+
+	location /static/ {
+		root /home/wir-dev/babajka-frontend-prod;
+		autoindex on;
+		try_files $uri $uri/ =404;
+	}
+
+	location /500.html {
+		root /home/wir-dev/babajka-frontend-prod/static/stubs;
+	}
+
+	location /404.html {
+		root /home/wir-dev/babajka-frontend-prod/static/stubs;
+	}
+}

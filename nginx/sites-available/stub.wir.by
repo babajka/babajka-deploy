@@ -1,0 +1,19 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
+	# server_name stub.wir.by www.stub.wir.by;
+
+	location / {
+		root /home/wir-dev/babajka-frontend-prod/static/stubs;
+		index development.html;
+		try_files $uri $uri/ =404;
+	}
+
+	location /static/ {
+		root /home/wir-dev/babajka-frontend-prod;
+		autoindex on;
+		try_files $uri $uri/ =404;
+	}
+}
