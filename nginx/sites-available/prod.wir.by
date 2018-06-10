@@ -1,34 +1,54 @@
 server {
-	listen 80;
+    server_name wir.by www.wir.by;
 
-	# Switch between the lines to enable/disable wir.by.
-	# stub.wir.by file must be modified accordingly then.
-	server_name prod.wir.by www.prod.wir.by;
-	# server_name wir.by www.wir.by prod.wir.by www.prod.wir.by;
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /500.html;
 
-	error_page 404 /404.html;
-	error_page 500 502 503 504 /500.html;
-
-	location / {
-		proxy_pass http://localhost:3009;
+    location / {
+        proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
-	}
+    }
 
-	location /static/ {
-		root /home/wir-dev/babajka-frontend-prod;
-		autoindex on;
-		try_files $uri $uri/ =404;
-	}
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/wir.by/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/wir.by/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-	location /500.html {
-		root /home/wir-dev/babajka-frontend-prod/static/stubs;
-	}
+    location /static/ {
+        root /home/wir-prod/babajka-frontend;
+        autoindex on;
+        try_files $uri $uri/ =404;
+    }
 
-	location /404.html {
-		root /home/wir-dev/babajka-frontend-prod/static/stubs;
-	}
+    location /500.html {
+        root /home/wir-prod/babajka-frontend/static/stubs;
+    }
+
+    location /404.html {
+        root /home/wir-prod/babajka-frontend/static/stubs;
+    }
+}
+
+server {
+    if ($host = www.wir.by) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = wir.by) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name wir.by www.wir.by;
+    return 404; # managed by Certbot
 }
