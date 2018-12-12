@@ -1,14 +1,14 @@
 server {
 	listen 80;
-  listen [::]:80;
+	listen [::]:80;
 
-	server_name api.wir.by www.api.wir.by api6.wir.by www.api6.wir.by;
+	server_name dev.wir.by www.dev.wir.by staging.wir.by www.staging.wir.by dev6.wir.by www.dev6.wir.by;
 
 	error_page 404 /404.html;
 	error_page 500 502 503 504 /500.html;
 
 	location / {
-    proxy_pass http://localhost:8080;
+    proxy_pass http://localhost:3000;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -17,9 +17,17 @@ server {
 	}
 
 	location /static/ {
-		root /home/wir-dev/babajka-frontend;
-		autoindex on;
+		root /home/wir-dev/deployed/frontend;
 		try_files $uri $uri/ =404;
+	}
+
+	location /robots.txt {
+		root /home/wir-dev/deployed/frontend/static/search-engines/dev;
+	}
+
+	# to verify the domain for google
+	location /google7196c1d1346286af.html {
+		root /home/wir-dev;
 	}
 
 	location /500.html {
@@ -27,6 +35,6 @@ server {
 	}
 
 	location /404.html {
-		root /home/wir-dev/babajka-frontend/static/stubs;
+		root /home/wir-dev/deployed/frontend/static/stubs;
 	}
 }
