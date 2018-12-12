@@ -17,7 +17,7 @@ server {
 	}
 
 	location /static/ {
-		root /home/wir-dev/deployed/frontend;
+    root /home/wir-dev/deployed/frontend;
 		try_files $uri $uri/ =404;
 	}
 
