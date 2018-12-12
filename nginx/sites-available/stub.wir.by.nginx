@@ -1,0 +1,21 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name wir.by www.wir.by stub.wir.by www.stub.wir.by
+
+	location / {
+		root /home/wir-dev/deployed/markup/dist/stubs;
+		index development.html;
+		try_files $uri $uri/ =404;
+	}
+
+	location /robots.txt {
+		root /home/wir-dev/deployed/markup/dist/static/search-engines/prod;
+	}
+
+	location /static/ {
+		root /home/wir-dev/deployed/markup/dist;
+		try_files $uri $uri/ =404;
+	}
+}
