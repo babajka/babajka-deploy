@@ -1,0 +1,17 @@
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name map.wir.by www.map.wir.by;
+
+	location / {
+		root /home/wir-dev/babajka-legends-map/build;
+		index index.html;
+		try_files $uri $uri/ =404;
+	}
+
+	location /static/ {
+		root /home/wir-dev/babajka-legends-map/build;
+		try_files $uri $uri/ =404;
+	}
+}
