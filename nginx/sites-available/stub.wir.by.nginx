@@ -18,4 +18,9 @@ server {
 		root /home/wir-dev/deployed/markup/dist;
 		try_files $uri $uri/ =404;
 	}
+
+	# to verify the domain for google
+	location /google7196c1d1346286af.html {
+		root /home/wir-dev;
+	}
 }
