@@ -2,7 +2,9 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
-	server_name wir.by www.wir.by stub.wir.by www.stub.wir.by
+	server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
+
+	gzip on;
 
 	location / {
 		root /home/wir-dev/deployed/markup/dist;

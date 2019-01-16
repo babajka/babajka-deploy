@@ -4,6 +4,8 @@ server {
 
 	server_name map.wir.by www.map.wir.by;
 
+	gzip on;
+
 	location / {
 		root /home/wir-dev/babajka-legends-map/build;
 		index index.html;
