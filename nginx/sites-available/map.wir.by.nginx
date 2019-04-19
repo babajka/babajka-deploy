@@ -1,24 +1,30 @@
 server {
-	listen 80;
-	listen [::]:80;
 
-	server_name map.wir.by www.map.wir.by;
+        server_name map.wir.by www.map.wir.by;
 
-	gzip on;
+        gzip on;
 
-	location / {
-		root /home/wir-dev/babajka-legends-map/build;
-		index index.html;
-		try_files $uri $uri/ =404;
-	}
+        location / {
+                root /home/wir-dev/babajka-legends-map/build;
+                try_files $uri $uri/ /index.html;
+                if ($request_uri ~* ".(jpe?g|png)$") {
+                        expires 30d;
+                        break;
+                }
+        }
 
-	location /static/ {
-		root /home/wir-dev/babajka-legends-map/build;
-		try_files $uri $uri/ =404;
-	}
+        location /robots.txt {
+                root /home/wir-dev/deployed/markup/dist/static/search-engines/prod;
+        }
 
-	# to verify the domain for google
-	location /google7196c1d1346286af.html {
-		root /home/wir-dev;
-	}
+        location /static/ {
+                root /home/wir-dev/babajka-legends-map/build;
+                try_files $uri $uri/ =404;
+                expires max;
+        }
+
+        # to verify the domain for google
+        location /google7196c1d1346286af.html {
+                root /home/wir-dev;
+        }
 }
