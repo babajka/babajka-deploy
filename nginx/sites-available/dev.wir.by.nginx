@@ -1,42 +1,52 @@
+map $sent_http_content_type $expires {
+  default									off;
+  text/html								epoch;
+  text/css								max;
+  application/javascript	max;
+  ~image/									max;
+}
+
 server {
-	listen 80;
-	listen [::]:80;
+  listen 80;
+  listen [::]:80;
 
-	server_name dev.wir.by www.dev.wir.by staging.wir.by www.staging.wir.by dev6.wir.by www.dev6.wir.by;
+  server_name dev.wir.by www.dev.wir.by staging.wir.by www.staging.wir.by dev6.wir.by www.dev6.wir.by;
 
-	gzip on;
+  gzip on;
 
-	error_page 404 /404.html;
-	error_page 500 502 503 504 /500.html;
+  expires $expires;
 
-	location / {
-		proxy_pass http://localhost:3000;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection 'upgrade';
-		proxy_set_header Host $host;
-		proxy_cache_bypass $http_upgrade;
-	}
+  error_page 404 /404.html;
+  error_page 500 502 503 504 /500.html;
 
-	location /static/ {
-		root /home/wir-dev/deployed/frontend;
-		try_files $uri $uri/ =404;
-	}
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
 
-	location /robots.txt {
-		root /home/wir-dev/deployed/frontend/static/search-engines/dev;
-	}
+  location /static/ {
+    root /home/wir-dev/deployed/frontend;
+    try_files $uri $uri/ =404;
+  }
 
-	# to verify the domain for google
-	location /google7196c1d1346286af.html {
-		root /home/wir-dev;
-	}
+  location /robots.txt {
+    root /home/wir-dev/deployed/frontend/static/search-engines/dev;
+  }
 
-	location /500.html {
-		root /home/wir-dev/babajka-frontend/static/stubs;
-	}
+  # to verify the domain for google
+  location /google7196c1d1346286af.html {
+    root /home/wir-dev;
+  }
 
-	location /404.html {
-		root /home/wir-dev/deployed/frontend/static/stubs;
-	}
+  location /500.html {
+    root /home/wir-dev/babajka-frontend/static/stubs;
+  }
+
+  location /404.html {
+    root /home/wir-dev/deployed/frontend/static/stubs;
+  }
 }

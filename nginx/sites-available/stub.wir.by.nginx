@@ -1,28 +1,38 @@
+map $sent_http_content_type $expires {
+  default									off;
+  text/html								epoch;
+  text/css								max;
+  application/javascript	max;
+  ~image/									max;
+}
+
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+  listen 80 default_server;
+  listen [::]:80 default_server;
 
-	server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
+  server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
 
-	gzip on;
+  gzip on;
 
-	location / {
-		root /home/wir-dev/deployed/markup/dist;
-		index landing.html;
-		try_files $uri $uri/ =404;
-	}
+  expires $expires;
 
-	location /robots.txt {
-		root /home/wir-dev/deployed/markup/dist/static/search-engines/prod;
-	}
+  location / {
+    root /home/wir-dev/deployed/markup/dist;
+    index landing.html;
+    try_files $uri $uri/ =404;
+  }
 
-	location /static/ {
-		root /home/wir-dev/deployed/markup/dist;
-		try_files $uri $uri/ =404;
-	}
+  location /robots.txt {
+    root /home/wir-dev/deployed/markup/dist/static/search-engines/prod;
+  }
 
-	# to verify the domain for google
-	location /google7196c1d1346286af.html {
-		root /home/wir-dev;
-	}
+  location /static/ {
+    root /home/wir-dev/deployed/markup/dist;
+    try_files $uri $uri/ =404;
+  }
+
+  # to verify the domain for google
+  location /google7196c1d1346286af.html {
+    root /home/wir-dev;
+  }
 }
