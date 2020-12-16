@@ -1,15 +1,13 @@
 map $sent_http_content_type $expires {
-  default									off;
-  text/html								epoch;
-  text/css								max;
+  default		off;
+  text/html	epoch;
+  text/css	max;
   application/javascript	max;
-  ~image/									max;
+  ~image/		max;
 }
 
 server {
-
-  server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
-  # server_name stub.wir.by www.stub.wir.by;
+  server_name prod.wir.by www.prod.wir.by beta.wir.by www.beta.wir.by prod6.wir.by www.prod6.wir.by;
 
   gzip on;
   gzip_comp_level 5;
@@ -44,14 +42,16 @@ server {
 
   expires $expires;
 
-  location / {
-    root /home/wir-dev/deployed/markup/dist;
-    index landing.html;
-    try_files $uri $uri/ =404;
-  }
+  error_page 404 /404.html;
+  error_page 500 502 503 504 /500.html;
 
-  location /robots.txt {
-    root /home/wir-dev/deployed/markup/dist/static/search-engines/prod;
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
   }
 
   location /audio/ {
@@ -68,36 +68,44 @@ server {
     index podcasts.rss.xml;
   }
 
-  # to verify the domain for google
-  location /google7196c1d1346286af.html {
-    root /home/wir-dev;
+  location /robots.txt {
+    root /home/wir-prod/deployed/frontend/static/search-engines/prod;
   }
 
-  listen [::]:443 ssl http2; # managed by Certbot
+  listen [::]:443 ssl http2 ipv6only=on; # managed by Certbot
   listen 443 ssl http2; # managed by Certbot
-  ssl_certificate /etc/letsencrypt/live/wir.by/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/wir.by/privkey.pem; # managed by Certbot
-  # include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
-  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
+  ssl_certificate /etc/letsencrypt/live/prod.wir.by/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/prod.wir.by/privkey.pem; # managed by Certbot
 
 }
+
+
 server {
-    if ($host = www.wir.by) {
+    if ($host = www.beta.wir.by) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = wir.by) {
+    if ($host = beta.wir.by) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-  listen 80 default_server;
-  listen [::]:80 default_server;
+  if ($host = www.prod.wir.by) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
 
-  server_name wir.by www.wir.by stub.wir.by www.stub.wir.by;
+
+  if ($host = prod.wir.by) {
+    return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+
+  listen 80;
+  listen [::]:80;
+
+  server_name prod.wir.by www.prod.wir.by beta.wir.by www.beta.wir.by prod6.wir.by www.prod6.wir.by;
     return 404; # managed by Certbot
 
 }

@@ -64,6 +64,20 @@ server {
     root /home/wir-dev/deployed/frontend/static/search-engines/dev;
   }
 
+  location /audio/ {
+          root /home/wir-dev/static;
+        }
+
+  location /rss {
+    alias /home/wir-dev/static/rss/;
+    index articles.rss.xml;
+  }
+
+  location /rss/podcasts {
+    alias /home/wir-dev/static/rss/;
+    index podcasts.rss.xml;
+  }
+
   # to verify the domain for google
   location /google7196c1d1346286af.html {
     root /home/wir-dev;
