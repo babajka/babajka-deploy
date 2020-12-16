@@ -9,6 +9,12 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-
 
 In order to enable gzip encoding you should additionally modify `/etc/nginx/nginx.conf` file.
 
+`api.`, `dev.`, `stub.` are to be put to **babajka-dev** server. `prod.`, `api-prod.` are for **babajka-prod** server.
+
+`map.` is currently on **babajka-dev**.
+
+`prod.wir.by.nginx` is derived from and synced with `dev.wir.by.nginx`
+
 ## Hints
 
 ### enable HSTS
