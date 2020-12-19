@@ -5,7 +5,9 @@ These files may be located at `/etc/nginx/sites-available/` in order to configur
 These files also contain sections which are managed by Certbot.
 I guess they may be overwritten on setup.
 Check out this tutorial to set it up on a remote machine:
-https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
+
+To avoid overwrites in nginx config files by certbot, consider using `sudo certbot certonly --nginx`.
 
 In order to enable gzip encoding you should additionally modify `/etc/nginx/nginx.conf` file.
 
