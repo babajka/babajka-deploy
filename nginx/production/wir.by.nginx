@@ -8,7 +8,7 @@ map $sent_http_content_type $expires {
 
 server {
 
-    server_name wir.by www.wir.by prod6.wir.by www.prod6.wir.by;
+    server_name wir.by www.wir.by;
 
     gzip on;
     gzip_comp_level 5;
@@ -77,24 +77,14 @@ server {
         root /home/wir-prod;
     }
 
-    listen [::]:443 ssl http2 ipv6only=on; # managed by Certbot
     listen 443 ssl http2; # managed by Certbot
-    ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
     ssl_certificate /etc/letsencrypt/live/wir.by/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/wir.by/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
-    if ($host = www.prod6.wir.by) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = prod6.wir.by) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
     if ($host = www.wir.by) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
@@ -105,9 +95,8 @@ server {
     } # managed by Certbot
 
     listen 80;
-    listen [::]:80;
 
-    server_name wir.by www.wir.by prod6.wir.by www.prod6.wir.by;
+    server_name wir.by www.wir.by;
     return 404; # managed by Certbot
 }
 
@@ -117,7 +106,7 @@ server {
 
     rewrite ^/$ https://wir.by/diary permanent;
 
-    listen 443 ssl; # managed by Certbot
+    listen 443 ssl http2; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/diary.wir.by/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/diary.wir.by/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
